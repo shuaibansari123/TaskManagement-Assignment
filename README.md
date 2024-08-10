@@ -14,7 +14,9 @@ This project is a RESTful API for a Task Management System built with Django and
 - **Caching:** i have used caching for reduce database load in production we can use distributed cache like redis or memcach with connection pooling
 - **Faker:**  Generate fake data for testing purpose. using "python create_fake_data.py" or "python manage.py create_fake_data" 
 - **Pagination:** for large response data, i implemeneted pagination for quick response
+- **Conatainarization:** easily build, test and deploy in any environment using docker and docker-compose
 - **Documentation:** API documentation using DRF-YASG.
+
 
 
 ### Prerequisites
@@ -56,15 +58,20 @@ optional:
     "python create_fake_data.py" or "python manage.py create_fake_data" 
 
 
+*** run using docker and docker-compose ***
+ to run docker in background execute this cmd
+  docker-compose up --build -d
+
+
 API Endpoints
 
 Base URL
-  http://localhost:8000/api/tasks/
+  http://localhost:8000/
 
 Endpoints
   List Tasks
-      URL: /tasks/
-      Method: GET
+    URL: /tasks/
+    Method: GET
       Description: Retrieve a list of tasks with pagination.
       Query Parameters:
       search: Search by title or description.
@@ -74,11 +81,13 @@ Endpoints
       Response:
       200 OK: Returns a paginated list of tasks.
 
+
   Create Task
       URL: /tasks/
       Method: POST
       Description: Create a new task.
       Request Body:
+
       {
         "title": "string",
         "description": "string",
@@ -86,6 +95,7 @@ Endpoints
         "priority": "string",
         "due_date": "YYYY-MM-DD"
       }
+
       Response:
       201 Created: Returns the created task.
 
@@ -138,8 +148,9 @@ The API supports pagination with a page size of 10 tasks per page. You can navig
 Caching
 The API caches the list of tasks for 5 minutes to improve performance. The cache is invalidated on task creation, update, or deletion.
 
-Logging
-I used Custom Mixin to Requests logged with details such as method, path, and user for debugging and monitoring purposes and this project uses Django’s logging framework with both file and console handlers. Logs are stored in the logs/django.log file.
+## Logging
+
+The API includes comprehensive logging for requests, responses, and business logic events. Logs are written to the console and a log file `task_management.log` and `debug.log`, capturing important details without exposing sensitive information.
 
 API Documentation
 API documentation is available at /swagger/ (configured using DRF-YASG).

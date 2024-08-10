@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     # third-party apps
     'rest_framework' , 
     'django_filters',
-    #'drf_yasg',
+    'drf_yasg',
 ]
 
 MIDDLEWARE = [
@@ -232,6 +232,39 @@ LOGGING = {
         },
     },
 }
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '{levelname} {asctime} {module} {message}',
+            'style': '{',
+        },
+        'simple': {
+            'format': '{levelname} {message}',
+            'style': '{',
+        },
+    },
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose',
+        },
+        'file': {
+            'class': 'logging.FileHandler',
+            'filename': 'task_management.log',
+            'formatter': 'verbose',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console', 'file'],
+            'level': 'INFO',
+        },
+    },
+}
+
 
 '''
 LOGGING = {
