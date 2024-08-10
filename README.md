@@ -112,6 +112,7 @@ Endpoints
       Response:
       200 OK: Returns the updated task.
       404 Not Found: If the task does not exist.
+      
 
   Delete Task
       URL: /tasks/{id}/
