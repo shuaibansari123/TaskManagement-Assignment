@@ -55,28 +55,90 @@ optional:
   in other ternimal use can use this to Generate fake data for testing purpose. 
     "python create_fake_data.py" or "python manage.py create_fake_data" 
 
+
 API Endpoints
-GET api/tasks/: Retrieve a list of tasks.
-GET api/tasks/<id>/: Retrieve details of a specific task by its ID.
-POST api/tasks/: Create a new task.
-PUT api/tasks/<id>/: Update an existing task.
-DELETE api/tasks/<id>/: Delete a specific task.
+
+Base URL
+  http://localhost:8000/api/tasks/
+
+Endpoints
+  List Tasks
+      URL: /tasks/
+      Method: GET
+      Description: Retrieve a list of tasks with pagination.
+      Query Parameters:
+      search: Search by title or description.
+      ordering: Order by due_date or priority.
+      status: Filter by task status.
+      priority: Filter by task priority.
+      Response:
+      200 OK: Returns a paginated list of tasks.
+
+  Create Task
+      URL: /tasks/
+      Method: POST
+      Description: Create a new task.
+      Request Body:
+      {
+        "title": "string",
+        "description": "string",
+        "status": "string",
+        "priority": "string",
+        "due_date": "YYYY-MM-DD"
+      }
+      Response:
+      201 Created: Returns the created task.
+
+  Retrieve Task
+      URL: /tasks/{id}/
+      Method: GET
+      Description: Retrieve details of a specific task by its ID.
+      Response:
+      200 OK: Returns the task details.
+      404 Not Found: If the task does not exist.
+
+  Update Task
+      URL: /tasks/{id}/
+      Method: PUT
+      Description: Update an existing task.
+      Request Body:
+      {
+        "title": "string",
+        "description": "string",
+        "status": "string",
+        "priority": "string",
+        "due_date": "YYYY-MM-DD"
+      }
+      Response:
+      200 OK: Returns the updated task.
+      404 Not Found: If the task does not exist.
+
+  Delete Task
+      URL: /tasks/{id}/
+      Method: DELETE
+      Description: Delete a specific task.
+      Response:
+      204 No Content: If the task is successfully deleted.
+      404 Not Found: If the task does not exist.
+
+  Retrieve Completed Tasks
+      URL: /tasks/completed/
+      Method: GET
+      Description: Retrieve a list of tasks with status 'completed'.
+      Response:
+      200 OK: Returns a list of completed tasks.
 
 
-Example Request
-Create Task:
-POST /tasks/
-Content-Type: application/json
+** API Usage **
 
-{
-  "title": "Fix bug",
-  "description": "Fix the bug in module X",
-  "status": "To Do",
-  "priority": "High",
-  "due_date": "2024-08-15"
-}
+Pagination
+The API supports pagination with a page size of 10 tasks per page. You can navigate through pages using query parameters.
+
+Caching
+The API caches the list of tasks for 5 minutes to improve performance. The cache is invalidated on task creation, update, or deletion.
+
 Logging
-The project uses Django’s logging framework with both file and console handlers. Logs are stored in the logs/django.log file.
+I used Custom Mixin to Requests logged with details such as method, path, and user for debugging and monitoring purposes and this project uses Django’s logging framework with both file and console handlers. Logs are stored in the logs/django.log file.
 
 API Documentation
 API documentation is available at /swagger/ (configured using DRF-YASG).
@@ -87,7 +149,6 @@ Ensure you have all dependencies installed and run tests with:
 python manage.py test
 or 
 pytest
-
 
 For any questions or comments, please contact shuaibansari4044@gmail.com.
 
